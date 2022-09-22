@@ -35,7 +35,17 @@ class Person:
 
     def myfunc(self):
         print("Hello my name is " + self.name + " and I am " +
-                self.age + " years old")
+                str(self.age) + " years old")
 
 p3 = Person("John", 36)
 p3.myfunc()
+
+# methods created inside class is called instance method.
+# there are also class methods ...
+# methods can be declared outside class all by themselves too
+def myAddFunction(a, b): # standalone functions don't require the 'self' parameter
+    return a + b
+
+print("Adding 5 and 6 gives you ... " + str(myAddFunction(5,6)))
+# using an integer value in between string concatenations will require using str() function
+# feed integer value to str() function, and it will return a string
