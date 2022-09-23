@@ -1,79 +1,46 @@
-# the built in __init()__ function of every class
-class Person:
-    def __init__(self, name, age): #the self parameter always goes in there
-        # but during usage, there is only two parameters
-        # to change the value of the class's own attributes,
-        # use the self.variableName syntax
-        # PS the 'self' can be called anything, as long as it is
-        # the first parameter, python will recognise it as 'self'
-        self.name = name
-        self.age = age
+import sys, getopt
 
-p2 = Person("John", 36) # this is like a C++ constructor
+#FUNCTION DEF: processArgs()
+# returns the input filename as a string
+def processArgs(argv):
+    argFormat = "prog1.py -i <inputfile>"
+    try:
+        opts, args = getopt.getopt(argv,"hi:")
+    except getopt.GetoptError:
+        print(argFormat)
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == "-h":
+            print("HELP: " + argFormat)
+            sys.exit()
+        elif opt == "-i":
+            inputfile = arg
+    return inputfile
 
-print(p2.name)
-print(p2.age)
+#FUNCTION DEF: processStringFromFile()
+# returns a list where each list element is a line from the file
+def processStringFromFile(_inputfile):
+    print("Reading file " + _inputfile)
+    with open(_inputfile) as f: # open file to read
+        rawList = f.readlines() # read the file, each line is an
+        # element in list rawList
+    list1 = [] # the final list
+    for i in rawList:
+        list1.append(i.replace("\n", "")) # replace all \n char
+        # in the list
+    list2 = []
+    for i in list1:
+        list2.append(i.replace("\"", "")) # remove the '"' from
+        # the strings
+    return list2
 
-# methods inside class
-class Person:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
+#MAIN PROGRAM SEQUENCE:
+if __name__ == "__main__": # run code only if this program
+    # instance is the main process
+    contents = processStringFromFile(processArgs(sys.argv[1:]))
+    for i in contents:
+        print(i)
 
-    def myfunc(self):
-        print("Hello my name is " + self.name + " and I am " +
-                str(self.age) + " years old")
 
-p3 = Person("John", 36)
-p3.myfunc()
-
-# methods created inside class is called instance method.
-# there are also class methods ...
-# methods can be declared outside class all by themselves too
-def myAddFunction(a, b): # standalone functions don't require the 'self' parameter
-    return a + b
-
-print("Adding 5 and 6 gives you ... " + str(myAddFunction(5,6)))
-# using an integer value in between string concatenations will require using str() function
-# feed integer value to str() function, and it will return a string
-
-# File IO 
-# read()
-print("read() function:")
-with open('MiniTown.dat') as f:
-    contents = f.read() # stores entire text file as one string
-    # into variable 'contents'
-    # the with ... as statement automatically closes the file
-    # there is a close() function if needed in case
-print(contents)
-
-# readline()
-print("readline() function:")
-with open('MiniTown.dat') as f:
-    print(f.readline()) # read a line, moves the file cursor
-    print(f.readline()) # read a line, moves the file cursor
-    # the print() adds a blank line automatically, but it 
-    # also prints the \n char from the file itself,
-    # so there is a blank space in between ...
-    # use the strip() function to remove \n chars from a string
-    print(f.readline().strip())
-    print(f.readline().strip())
-
-# readlines()
-print("readlines() function:")
-with open('MiniTown.dat') as f:
-    contents = f.readlines() # also, readlines() returns 
-    # a python list
-for i in contents:
-    print(i)
-
-# use strip() on each element of list 'contents' to remove '\n'
-rez = []
-for i in contents:
-    rez.append(i.replace("\n", ""))
-# print the final output without the \n char
-for i in rez:
-    print("rez: " + i)
 
 # accepting arguments into a python program
-# TODO ...
