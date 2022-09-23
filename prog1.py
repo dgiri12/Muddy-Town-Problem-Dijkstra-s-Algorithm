@@ -1,16 +1,3 @@
-# this is a comment
-# program that prints hello world
-
-print('Hello World!')
-
-# create a class named MyClass (starts with capital), with a property named x
-class MyClass:
-    x = 5
-
-# now create an instance of that class
-p1 = MyClass()
-print(p1.x)
-
 # the built in __init()__ function of every class
 class Person:
     def __init__(self, name, age): #the self parameter always goes in there
@@ -49,3 +36,44 @@ def myAddFunction(a, b): # standalone functions don't require the 'self' paramet
 print("Adding 5 and 6 gives you ... " + str(myAddFunction(5,6)))
 # using an integer value in between string concatenations will require using str() function
 # feed integer value to str() function, and it will return a string
+
+# File IO 
+# read()
+print("read() function:")
+with open('MiniTown.dat') as f:
+    contents = f.read() # stores entire text file as one string
+    # into variable 'contents'
+    # the with ... as statement automatically closes the file
+    # there is a close() function if needed in case
+print(contents)
+
+# readline()
+print("readline() function:")
+with open('MiniTown.dat') as f:
+    print(f.readline()) # read a line, moves the file cursor
+    print(f.readline()) # read a line, moves the file cursor
+    # the print() adds a blank line automatically, but it 
+    # also prints the \n char from the file itself,
+    # so there is a blank space in between ...
+    # use the strip() function to remove \n chars from a string
+    print(f.readline().strip())
+    print(f.readline().strip())
+
+# readlines()
+print("readlines() function:")
+with open('MiniTown.dat') as f:
+    contents = f.readlines() # also, readlines() returns 
+    # a python list
+for i in contents:
+    print(i)
+
+# use strip() on each element of list 'contents' to remove '\n'
+rez = []
+for i in contents:
+    rez.append(i.replace("\n", ""))
+# print the final output without the \n char
+for i in rez:
+    print("rez: " + i)
+
+# accepting arguments into a python program
+# TODO ...
