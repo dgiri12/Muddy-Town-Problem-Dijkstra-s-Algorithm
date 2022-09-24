@@ -34,6 +34,14 @@ def processStringFromFile(_inputfile):
         # the strings
     return list2
 
+def getRandomNumber(seed):
+    modulus = 25 # needs to be positive
+    multiplier = 11 # is positive but less than modulus
+    increment = 17 # is zero or more but less than modulus
+    # seed = 3 # is zero or more, but less than modulus
+    # for i in range(100): # i = 0 and i < 100
+    return (multiplier * seed + increment) % modulus
+
 #MAIN PROGRAM SEQUENCE:
 if __name__ == "__main__": # run code only if this program
     # instance is the main process
@@ -41,6 +49,7 @@ if __name__ == "__main__": # run code only if this program
     for i in contents:
         print(i)
 
-
-
-# accepting arguments into a python program
+    seed = 3
+    for i in range(100):
+        seed = getRandomNumber(seed)
+        print("Random: " + str(seed))
