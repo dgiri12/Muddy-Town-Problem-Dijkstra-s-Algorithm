@@ -1,55 +1,31 @@
-import sys, getopt
+import sys # to get argument from command line
+from funcs import processArgs
+from funcs import processStringFromFile
+from funcs import getRandomNumber
+# the functions have been moved to another file
+# using 'import funcs' gives access to everything inside
+# funcs, but usage becomes funcs.processArgs()
+# with the above syntax, the functions become as if
+# they are part of this file, so just 'processArgs()'
+# also works just fine
 
-#FUNCTION DEF: processArgs()
-# returns the input filename as a string
-def processArgs(argv):
-    argFormat = "prog1.py -i <inputfile>"
-    try:
-        opts, args = getopt.getopt(argv,"hi:")
-    except getopt.GetoptError:
-        print(argFormat)
-        sys.exit(2)
-    for opt, arg in opts:
-        if opt == "-h":
-            print("HELP: " + argFormat)
-            sys.exit()
-        elif opt == "-i":
-            inputfile = arg
-    return inputfile
+# use this to test the random number function
+def printRandomNumbers(_seed, _range):
+    for i in range(_range):
+        _seed = getRandomNumber(_seed)
+        print("Random: ", str(_seed))
 
-#FUNCTION DEF: processStringFromFile()
-# returns a list where each list element is a line from the file
-def processStringFromFile(_inputfile):
-    print("Reading file " + _inputfile)
-    with open(_inputfile) as f: # open file to read
-        rawList = f.readlines() # read the file, each line is an
-        # element in list rawList
-    list1 = [] # the final list
-    for i in rawList:
-        list1.append(i.replace("\n", "")) # replace all \n char
-        # in the list
-    list2 = []
-    for i in list1:
-        list2.append(i.replace("\"", "")) # remove the '"' from
-        # the strings
-    return list2
-
-def getRandomNumber(seed):
-    modulus = 25 # needs to be positive
-    multiplier = 11 # is positive but less than modulus
-    increment = 17 # is zero or more but less than modulus
-    # seed = 3 # is zero or more, but less than modulus
-    # for i in range(100): # i = 0 and i < 100
-    return (multiplier * seed + increment) % modulus
-
-#MAIN PROGRAM SEQUENCE:
-if __name__ == "__main__": # run code only if this program
-    # instance is the main process
+#MAIN PROGRAM FUNCTION:
+def run():
     contents = processStringFromFile(processArgs(sys.argv[1:]))
     for i in contents:
         print(i)
 
-    seed = 3
-    for i in range(100):
-        seed = getRandomNumber(seed)
-        print("Random: " + str(seed))
+    # printRandomNumbers(3, 100)
+
+# --------------------------------------------------------
+#the python program sequence
+if __name__ == "__main__": # run code only if this program
+    # instance is the main process
+    run()
+
