@@ -1,6 +1,25 @@
 DEBUG =0 
 if DEBUG: import pdb
 
+string1 = [
+        "6,A,B",
+        "1,A,D",
+        "2,D,B",
+        "1,D,E",
+        "2,E,B",
+        "5,E,C",
+        "5,C,B"]
+string2 = [
+        "1,A,F",
+        "5,A,D",
+        "3,D,F",
+        "4,F,C",
+        "6,F,B",
+        "9,D,B",
+        "11,C,B",
+        "8,C,G",
+        "2,G,E",
+        "7,B,E"]
 class DField:
     def __init__(self, house, shortest, prevHouse):
         self.house = house
@@ -56,30 +75,7 @@ def findInTable(_dTable, _houseToFind): # finds the given housename (string) in 
         if i.house == _houseToFind:
             return index
 
-def djikstraModule():
-
-    string1 = [
-            "6,A,B",
-            "1,A,D",
-            "2,D,B",
-            "1,D,E",
-            "2,E,B",
-            "5,E,C",
-            "5,C,B"]
-    string2 = [
-            "1,A,F",
-            "5,A,D",
-            "3,D,F",
-            "4,F,C",
-            "6,F,B",
-            "9,D,B",
-            "11,C,B",
-            "8,C,G",
-            "2,G,E",
-            "7,B,E"
-            ]
-    stringList = string2
-
+def dProcessor(stringList):
     print("houseList[]: ")
     houseList = getHouseList(stringList) # initialize a houselist into that variable
     print(houseList)
@@ -154,9 +150,11 @@ def djikstraModule():
         visitedList.append(currentVertex)
         print("VisitedList (updated)")
         print(visitedList)
-    
-
-
+    return dTable 
+ 
 if __name__ == "__main__":
-     djikstraModule()
+    dTable1 = dProcessor(string1)
+    print("Printing values in main now...")
+    for i in dTable1:
+        i.printValues()
 
