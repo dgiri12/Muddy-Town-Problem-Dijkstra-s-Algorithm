@@ -1,6 +1,3 @@
-DEBUG =0 
-if DEBUG: import pdb
-
 string1 = [
         "6,A,B",
         "1,A,D",
@@ -20,6 +17,7 @@ string2 = [
         "8,C,G",
         "2,G,E",
         "7,B,E"]
+
 class DField:
     def __init__(self, house, shortest, prevHouse):
         self.house = house
@@ -76,15 +74,8 @@ def findInTable(_dTable, _houseToFind): # finds the given housename (string) in 
             return index
 
 def dProcessor(stringList):
-    print("houseList[]: ")
     houseList = getHouseList(stringList) # initialize a houselist into that variable
-    print(houseList)
-    
     dTable = dTableInit(houseList) # initialize a dTable into that variable
-    # print the entire dTable
-    print("The D-Table:")
-    for x in dTable:
-        x.printValues()
 
     visitedList = [] # list of houses that have been visited
 
@@ -102,7 +93,6 @@ def dProcessor(stringList):
 
         # terminate loop if visitedList is full
         if currentVertexIndex == -1: break
-
 
         neighboursPosition = [] # line position in the stringList
         neighbours = [] # list of the actual neighbours (strings)
@@ -122,8 +112,6 @@ def dProcessor(stringList):
                 neighbours.append(line[1])
                 neighboursPosition.append(index)
                 neighboursDistanceValue.append(int(line[0]))
-        print ("The neighbours of " + currentVertex + " are")
-        print(neighbours)
 
         # if the calculatedDistance is shorter than the neighbour's distance, update values
         # in dTable for those neighbours
@@ -141,15 +129,9 @@ def dProcessor(stringList):
                 dTable[findInTable(dTable,i)].prevHouse = currentVertex
                 continue
 
-        # print the updated values
-        print("Latest dTable is:")
-        for x in dTable:
-            x.printValues()
-            
         # now add the current vertex to the list of visited vertices
         visitedList.append(currentVertex)
-        print("VisitedList (updated)")
-        print(visitedList)
+
     return dTable 
  
 if __name__ == "__main__":
