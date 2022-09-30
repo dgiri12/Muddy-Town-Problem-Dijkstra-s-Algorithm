@@ -1,4 +1,5 @@
 string1 = [
+        "Willow",
         "6,A,B",
         "1,A,D",
         "2,D,B",
@@ -7,6 +8,7 @@ string1 = [
         "5,E,C",
         "5,C,B"]
 string2 = [
+        "Pillow",
         "1,A,F",
         "5,A,D",
         "3,D,F",
@@ -17,6 +19,55 @@ string2 = [
         "8,C,G",
         "2,G,E",
         "7,B,E"]
+
+town1 = [
+        "Mini Town",
+        "3,1 First Street,2 First Street",
+        "2,1 Second Street,1 First Street",
+        "3,2 First Street,1 Second Street"]
+
+string3 = [
+        "Town2",
+        "2,A,M",
+        "6,A,B",
+        "1,A,C",
+        "4,C,N",
+        "3,N,K",
+        "1,D,K",
+        "1,F,K",
+        "7,B,F",
+        "5,B,D"
+        ]
+
+string4 = [
+        "town3",
+        "2,A,B",
+        "3,B,C",
+        "1,C,D",
+        "7,B,E",
+        "4,F,C"]
+
+string5 = [
+        "millow",
+        "7,A,B",
+        "4,B,D",
+        "1,B,C",
+        "3,B,E",
+        "1,A,E",
+        "4,E,D",
+        "6,C,D",
+        "1,A,D"
+        ]
+
+# 5FG is unconnected from the rest
+unconnectedGraph = [
+        "1,A,B",
+        "3,B,E",
+        "4,A,C",
+        "7,B,C",
+        "2,D,E",
+        "5,F,G"
+        ]
 
 class DField:
     def __init__(self, house, shortest, prevHouse):
@@ -33,10 +84,13 @@ def getHouseList(_stringList):
     houseList = []
     for i in _stringList:
         line = i.split(",")
-        if line[1] not in houseList:
-            houseList.append(line[1])
-        if line[2] not in houseList:
-            houseList.append(line[2])
+        try:
+            if line[1] not in houseList:
+                houseList.append(line[1])
+            if line[2] not in houseList:
+                houseList.append(line[2])
+        except IndexError: # this means this line is just name of town
+            continue
     return houseList
 
 # initialize the dTable
@@ -68,12 +122,26 @@ def findVertexShortestDistance(_dTable, _visitedList):
     return foundIndex # this is the index of vertex in dTable with shortest distance
 
 def findInTable(_dTable, _houseToFind): # finds the given housename (string) in the dTable and 
-    # returns its index
+    # returns its index or '-1' if not found
+    found = False
     for index, i in enumerate(_dTable):
         if i.house == _houseToFind:
+            found = True
             return index
+    if found == False: return -1
 
-def dProcessor(stringList):
+def removeTownName(_stringList):
+    newList = []
+    firstLine = True
+    for i in _stringList:
+        if firstLine == True:
+            firstLine = False
+            continue
+        newList.append(i)
+    return newList
+
+def townProcessor(stringList):
+    stringList = removeTownName(stringList)
     houseList = getHouseList(stringList) # initialize a houselist into that variable
     dTable = dTableInit(houseList) # initialize a dTable into that variable
 
@@ -112,6 +180,9 @@ def dProcessor(stringList):
                 neighbours.append(line[1])
                 neighboursPosition.append(index)
                 neighboursDistanceValue.append(int(line[0]))
+            # as long as connections in stringList are not repeated as
+            # in "6,A,B" and "6,B,A", there will be no duplicate
+            # neighbours
 
         # if the calculatedDistance is shorter than the neighbour's distance, update values
         # in dTable for those neighbours
@@ -133,10 +204,49 @@ def dProcessor(stringList):
         visitedList.append(currentVertex)
 
     return dTable 
+
+def townProcessor_test():
+    string1 = [
+            "Willow",
+            "6,A,B",
+            "1,A,D",
+            "2,D,B",
+            "1,D,E",
+            "2,E,B",
+            "5,E,C",
+            "5,C,B"]
+
+    dTable = townProcessor(string1)
+
+    correctDtable = []
+    f1 = DField("A", 0, "Z")
+    f2 = DField("B", 3, "D")
+    f3 = DField("D", 1, "A")
+    f4 = DField("E", 2, "D")
+    f5 = DField("C", 7, "E")
+    correctDtable.append(f1)
+    correctDtable.append(f2)
+    correctDtable.append(f3)
+    correctDtable.append(f4)
+    correctDtable.append(f5)
+
+    testPassed = True
+
+    # check values between correct dTable and created dTable
+    if len(dTable) != len(correctDtable): testPassed = False
+    for index, i in enumerate(dTable):
+        if i.house != correctDtable[index].house:
+            testPassed = False
+        if i.shortest != correctDtable[index].shortest:
+            testPassed = False
+        if i.prevHouse != correctDtable[index].prevHouse:
+            testPassed = False
+    return testPassed
  
 if __name__ == "__main__":
-    dTable1 = dProcessor(string1)
+    # tests
+    if townProcessor_test() == False: print("townProcessor() test failed...")
+    dTable1 = townProcessor(string5)
     print("Printing values in main now...")
     for i in dTable1:
         i.printValues()
-

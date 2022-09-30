@@ -1,5 +1,9 @@
 import sys, getopt
 
+MODULUS = 25
+# systemwide switch for printing debug messages
+def isPrint():
+    return True
 #FUNCTION DEF: processArgs()
 # returns the input filename as a string
 def processArgs(argv):
@@ -42,14 +46,17 @@ def processStringFromFile(_inputfile):
     return list2
 
 def getRandomNumber(seed):
-    modulus = 25 # needs to be positive
+    # modulus = 25 # needs to be positive, default is 25
     # TODO while you develop djikstra's algorithm, keep mod = 25
     # ... later change it to 10000 to generator super large towns
     multiplier = 11 # is positive but less than modulus
     increment = 17 # is zero or more but less than modulus
     # seed = 3 # is zero or more, but less than modulus
     # for i in range(100): # i = 0 and i < 100
-    return (multiplier * seed + increment) % modulus
+    seed = (multiplier * seed + increment) % MODULUS 
+    while seed == 0: # if generated '0', re-randomize
+        seed = (multiplier * seed + increment) % MODULUS 
+    return seed
     # this is known as an LCG (Linear Congruential Generator)
     # also, this generator has a period, i.e. the pseudo-
     # -domized numbers repeat after a certain number of
