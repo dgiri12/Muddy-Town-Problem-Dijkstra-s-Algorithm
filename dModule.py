@@ -75,6 +75,7 @@ def removeTownName(_stringList):
     return newList
 
 def townProcessor(stringList):
+    print("Processing town and generating dTable")
     stringList = removeTownName(stringList)
     houseList = getHouseList(stringList) # initialize a houselist into that variable
     dTable = dTableInit(houseList) # initialize a dTable into that variable
@@ -176,6 +177,12 @@ def townProcessor_test():
         if i.prevHouse != correctDtable[index].prevHouse:
             testPassed = False
     return testPassed
+
+def printDTable(dTable):
+    print("House\tShortest Distance From Start Point\tParent")
+    for i in dTable:
+        i.printValues()
+
  
 if __name__ == "__main__":
     # tests
