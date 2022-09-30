@@ -5,8 +5,13 @@ class DField:
         self.prevHouse = prevHouse
 
     def printValues(self):
-        print(str(self.house) + "\t" + str(self.shortest) + "\t" +
-                str(self.prevHouse))
+        # if encountered null value, print info
+        if self.house == "Z" or  self.prevHouse == "Z":
+            print(str(self.house) + "\t" + str(self.shortest) + "\t" +
+                    str(self.prevHouse)+ "\t 'Z' means Null")
+        else:
+            print(str(self.house) + "\t" + str(self.shortest) + "\t" +
+                    str(self.prevHouse))
 
 #1 iterates a list and generates a list of unique houses that were in that list
 def getHouseList(_stringList):
@@ -15,9 +20,9 @@ def getHouseList(_stringList):
         line = i.split(",")
         try:
             if line[1] not in houseList:
-                houseList.append(line[1])
+                if line[1] != "Z": houseList.append(line[1]) # 'Z' means null
             if line[2] not in houseList:
-                houseList.append(line[2])
+                if line[2] != "Z": houseList.append(line[2])
         except IndexError: # this means this line is just name of town
             continue
     return houseList
