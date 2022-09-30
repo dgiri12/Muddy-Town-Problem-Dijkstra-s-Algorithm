@@ -1,0 +1,70 @@
+string1 = [
+        "Willow",
+        "6,A,B",
+        "1,A,D",
+        "2,D,B",
+        "1,D,E",
+        "2,E,B",
+        "5,E,C",
+        "5,C,B"]
+string2 = [
+        "Pillow",
+        "1,A,F",
+        "5,A,D",
+        "3,D,F",
+        "4,F,C",
+        "6,F,B",
+        "9,D,B",
+        "11,C,B",
+        "8,C,G",
+        "2,G,E",
+        "7,B,E"]
+town1 = [
+        "Mini Town",
+        "3,1 First Street,2 First Street",
+        "2,1 Second Street,1 First Street",
+        "3,2 First Street,1 Second Street"]
+
+string3 = [
+        "Town2",
+        "2,A,M",
+        "6,A,B",
+        "1,A,C",
+        "4,C,N",
+        "3,N,K",
+        "1,D,K",
+        "1,F,K",
+        "7,B,F",
+        "5,B,D"
+        ]
+
+string4 = [
+        "town3",
+        "2,A,B",
+        "3,B,C",
+        "1,C,D",
+        "7,B,E",
+        "4,F,C"]
+
+string5 = [
+        "millow",
+        "7,A,B",
+        "4,B,D",
+        "1,B,C",
+        "3,B,E",
+        "1,A,E",
+        "4,E,D",
+        "6,C,D",
+        "1,A,D"
+        ]
+
+# 5FG is unconnected from the rest
+unconnectedGraph = [
+        "1,A,B",
+        "3,B,E",
+        "4,A,C",
+        "7,B,C",
+        "2,D,E",
+        "5,F,G"
+        ]
+

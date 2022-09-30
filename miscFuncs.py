@@ -1,9 +1,11 @@
 import sys, getopt
 
 MODULUS = 25
+
 # systemwide switch for printing debug messages
 def isPrint():
     return True
+
 #FUNCTION DEF: processArgs()
 # returns the input filename as a string
 def processArgs(argv):
@@ -46,23 +48,30 @@ def processStringFromFile(_inputfile):
     return list2
 
 def getRandomNumber(seed):
-    # modulus = 25 # needs to be positive, default is 25
-    # TODO while you develop djikstra's algorithm, keep mod = 25
-    # ... later change it to 10000 to generator super large towns
-    multiplier = 11 # is positive but less than modulus
-    increment = 17 # is zero or more but less than modulus
-    # seed = 3 # is zero or more, but less than modulus
-    # for i in range(100): # i = 0 and i < 100
+    multiplier = 11 
+    increment = 17 
     seed = (multiplier * seed + increment) % MODULUS 
-    while seed == 0: # if generated '0', re-randomize
+    while seed == 0: 
         seed = (multiplier * seed + increment) % MODULUS 
     return seed
-    # this is known as an LCG (Linear Congruential Generator)
-    # also, this generator has a period, i.e. the pseudo-
-    # -domized numbers repeat after a certain number of
-    # iterations. The modulus acts as a 'period length',
-    # it's value can be changed to make the period longer
-    # or shorter, lower is longer period
-    # a value of modulus = 25 makes the period repeat every
-    # 25 iterations
+
+
+# use this to test the random number function
+# syntax: printRandomNumbers(3, 100)
+def printRandomNumbers(_seed, _range):
+    for i in range(_range):
+        _seed = getRandomNumber(_seed)
+        print("Random: ", str(_seed))
+
+def isEven(_number):
+    if _number % 2 == 0:
+        return True
+    else:
+        return False
+
+def sumOfDigits(_number):
+    sum = 0
+    for digit in str(_number):
+        sum += int(digit)
+    return sum
 
