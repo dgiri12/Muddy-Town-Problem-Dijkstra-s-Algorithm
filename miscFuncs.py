@@ -1,10 +1,11 @@
 import sys, getopt
+import pdb
 
 MODULUS = 32768
 
 # systemwide switch for printing debug messages
 def isPrint():
-    return False
+    return True
 
 #FUNCTION DEF: processArgs()
 # returns the input filename as a string
@@ -47,28 +48,6 @@ def processStringFromFile(_inputfile):
         # the strings
     return list2
 
-def writeTownDataToFile(townData):
-    outputlist = []
-    outputlist.append("\"" + townData[0] + "\"")
-    for i in townData:
-        try:
-            lines = i.split(",")
-
-            pavingCost = lines[0] + ","
-            fromHouse = "\"" + lines[1]+"\""+ ","
-            toHouse = "\"" + lines[2]+"\""
-            outputlist.append(pavingCost+fromHouse+toHouse)
-
-        except IndexError:
-            continue # to skip line with town name
-
-    # now save to a file
-    filename = townData[0] + ".txt"
-    print("Writing to file " + filename)
-    with open(filename, 'w') as file:
-        for i in outputlist:
-            file.write(i+"\n")
-
 def getRandomNumber(seed):
     multiplier = 11 
     increment = 17 
@@ -97,3 +76,7 @@ def sumOfDigits(_number):
         sum += int(digit)
     return sum
 
+if __name__ == "__main__":
+   writePavingDataToFile(readPavingDataFromFile("paving/MiniTownPavingPlan.dat"))
+   
+   

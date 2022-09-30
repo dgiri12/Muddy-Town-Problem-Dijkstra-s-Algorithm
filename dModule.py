@@ -90,7 +90,7 @@ def townProcessor(stringList):
 
     while True:
         currentVertexIndex = findVertexShortestDistance(dTable,visitedList)
-        # ↑ also checks visitedList, if all visited then returns '-1'
+        # ^ also checks visitedList, if all visited then returns '-1'
         currentVertex = dTable[currentVertexIndex].house
         currentVertexShortest = dTable[currentVertexIndex].shortest
 
