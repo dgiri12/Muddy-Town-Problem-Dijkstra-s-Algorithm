@@ -5,7 +5,7 @@ MODULUS = 32768
 
 # systemwide switch for printing debug messages
 def isPrint():
-    return True
+    return False
 
 
 #FUNCTION DEF: processStringFromFile()
@@ -53,7 +53,5 @@ def sumOfDigits(_number):
         sum += int(digit)
     return sum
 
-if __name__ == "__main__":
-   writePavingDataToFile(readPavingDataFromFile("paving/MiniTownPavingPlan.dat"))
    
    

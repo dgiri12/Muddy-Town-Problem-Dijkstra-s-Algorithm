@@ -1,4 +1,6 @@
 from miscFuncs import processStringFromFile
+from dModule import getHouseList, townProcessor
+from edgesCalc import isConnected, addEdge
 
 # reads paving data from file, and stores it in
 # the system as a string
@@ -28,8 +30,8 @@ def writePavingStringToFile(pavingString):
             continue # to skip line with town name
 
     # now save to a file
-    filename = pavingString[0] + ".txt"
-    print("Writing to file " + filename)
+    filename = pavingString[0] + ".dat"
+    print("Writing paving data to file " + filename)
     with open(filename, 'w') as file:
         for i in outputlist:
             file.write(i+"\n")
@@ -81,7 +83,7 @@ def isMinPavingPlanCost(townDataFile, pavingPlanFile):
     townData = processStringFromFile(townDataFile)
 
     dTable = townProcessor(townData)
-    pavingPlanName = townData[0] + " paving plan"
+    pavingPlanName = townData[0] + "pavingplan"
     pavingString = generatePavingStringFromDTable(pavingPlanName, dTable)
     ownCost = displayPavingData(townData, pavingString)
     
@@ -97,8 +99,58 @@ def isMinPavingPlanCost(townDataFile, pavingPlanFile):
 def findMinCostPavingPlan(townDataFile):
     townData = processStringFromFile(townDataFile)
     dTable = townProcessor(townData)
-    pavingPlanName = townData[0] + " paving plan"
+    pavingPlanName = townData[0] + "pavingplan"
     pavingString = generatePavingStringFromDTable(pavingPlanName, dTable)
     minCost = displayPavingData(townData, pavingString)
     return minCost
+
+    # returns true or false
+def confirmPavingPlan(townData, pavingString):
+    # check1 make sure all houses from townData is specified
+    # in pavingString
+    houseList = getHouseList(townData)
+    for i in houseList:
+        skipName = False
+        found = False
+        for j in pavingString:
+            if skipName==False:
+                skipName = True
+                continue
+            line = j.split(",")
+            if line[0] == i:
+                found = True
+                break
+            if line[1] == i:
+                found = True
+                break
+    if found == False: return False 
+
+    # check2, traverse the pavingString and determine if
+    # all the houses are connected via an algorithm
+
+    n = len(houseList)
+    skipName = False
+    for k in pavingString:
+        if skipName == False:
+            skipName = True
+            continue
+        line = k.split(",")
+        house1 = line[0]
+        house2 = line[1]
+        
+        fromNode = 1
+        toNode = 1
+        for i in houseList:
+            if house1 == i: break
+            fromNode += 1
+        for i in houseList:
+            if house2 == i: break
+            toNode += 1
+
+        addEdge(fromNode, toNode)
+
+    if (isConnected(n)):
+        return True
+    else:
+        return False
 

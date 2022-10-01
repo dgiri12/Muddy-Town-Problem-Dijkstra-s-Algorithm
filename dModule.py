@@ -183,11 +183,4 @@ def printDTable(dTable):
     for i in dTable:
         i.printValues()
 
- 
-if __name__ == "__main__":
-    # tests
-    if townProcessor_test() == False: print("townProcessor() test failed...")
-    dTable1 = townProcessor(string5)
-    print("Printing values in main now...")
-    for i in dTable1:
-        i.printValues()
+
