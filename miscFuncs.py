@@ -7,29 +7,6 @@ MODULUS = 32768
 def isPrint():
     return True
 
-#FUNCTION DEF: processArgs()
-# returns the input filename as a string
-def processArgs(argv):
-    inputfile = ""
-    argFormat = "Correct syntax: prog1.py -i <inputfile>"
-    try:
-        opts, args = getopt.getopt(argv,"hi:")
-    except getopt.GetoptError:
-        # only checks for incorrect format of arguments provided
-        # to an option, if no option is provided, then technically
-        # there is no error, so...
-        print(argFormat)
-        sys.exit(2)
-    for opt, arg in opts:
-        if opt == "-h":
-            print(argFormat)
-            sys.exit()
-        elif opt == "-i":
-            inputfile = arg
-    if inputfile == "":
-        print(argFormat)
-        sys.exit(2)
-    return inputfile
 
 #FUNCTION DEF: processStringFromFile()
 # returns a list where each list element is a line from the file

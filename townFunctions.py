@@ -28,17 +28,6 @@ def checkIfTownConnected(townData):
             return False
     return True
 
-if __name__ == "__main__":
-    houseList = ["A","B","C","D","E"]
-    print("houseList[]:")
-    print(houseList)
-
-    seed = 42 # int(input("Seed?:"))
-    
-    stringList = generateConnections(houseList, seed)
-    print("The output of function generateTown() is:")
-    print(stringList)
-
 # function that displays stored town data
 # your data structure itself is the stringList...
 def displayTownData(townData):
@@ -333,3 +322,15 @@ def writeTownDataToFile(townData):
     with open(filename, 'w') as file:
         for i in outputlist:
             file.write(i+"\n")
+
+
+if __name__ == "__main__":
+    houseList = ["A","B","C","D","E"]
+    print("houseList[]:")
+    print(houseList)
+
+    seed = 42 # int(input("Seed?:"))
+    
+    stringList = generateConnections(houseList, seed)
+    print("The output of function generateTown() is:")
+    print(stringList)
