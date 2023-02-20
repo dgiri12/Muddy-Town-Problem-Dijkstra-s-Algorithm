@@ -1,6 +1,20 @@
+# DISCLAIMER
+```
+The code in the file edgesCalc.py is derived from an external source.
+Original Author: AnkitRai01
+Code source: https://www.geeksforgeeks.org/check-if-a-directed-graph-is-connected-or-not/
+
+I received help from the following persons during the completion of this project:
+Thu Thach
+Ryan Adams
+Tony Diaz
+Jaden
+Juan
+```
+
 # README
 
-This is a python script that aids in planning how to get the least cost of paving streets that connect all the houses  in a town.
+This is a python script that aids in planning how to get the least cost of paving streets that connect all the houses in a town.
 
 ## REQUIREMENTS:
 This program requires python3 to be run on the system. Please install HomeBrew and refer to internet documentation for how to install python3 into your system.
